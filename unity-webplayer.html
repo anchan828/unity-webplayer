@@ -1,4 +1,4 @@
-<link rel="import" href="http://rawgithub.com/Polymer/polymer/master/polymer.html">
+<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/0.3.3/polymer.js"></script>
 <script type='text/javascript'
         src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
 <script type='text/javascript'
@@ -12,12 +12,13 @@
                 data: "Test.unity3d",
                 ready: function () {
                     var config = {
-                        width: 960,
-                        height: 600,
+                        width: this.width,
+                        height: this.height,
                         params: { enableDebugging: "0" }
                     };
                     var u = new UnityObject2(config);
                     var unityPlayer = this.$.unityPlayer;
+                    var data = this.data;
                     jQuery(function () {
 
                         var $missingScreen = jQuery(unityPlayer).find(".missing");
@@ -52,7 +53,7 @@
                                     break;
                             }
                         });
-                        u.initPlugin(unityPlayer, "Test.unity3d");
+                        u.initPlugin(unityPlayer, data);
                     });
                 }
             });
@@ -68,38 +69,6 @@
     <!--</script>-->
     <style type="text/css">
         <!--
-        body {
-            font-family: Helvetica, Verdana, Arial, sans-serif;
-            background-color: white;
-            color: black;
-            text-align: center;
-        }
-
-        a:link, a:visited {
-            color: #000;
-        }
-
-        a:active, a:hover {
-            color: #666;
-        }
-
-        p.header {
-            font-size: small;
-        }
-
-        p.header span {
-            font-weight: bold;
-        }
-
-        p.footer {
-            font-size: x-small;
-        }
-
-        div.content {
-            margin: auto;
-            width: 960px;
-        }
-
         div.broken,
         div.missing {
             margin: auto;
@@ -124,18 +93,12 @@
             display: none;
         }
 
-        div#unityPlayer {
-            cursor: default;
-            height: 960px;
-            width: 600px;
-        }
-
         -->
     </style>
     <template>
 
         <div layout horizontal center>
-            <div id="unityPlayer">
+            <div id="unityPlayer" style="width:{{width}};height: {{height}};cursor: default;">
                 <div class="missing">
                     <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
                         <img alt="Unity Web Player. Install now!"
